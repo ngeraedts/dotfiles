@@ -9,18 +9,6 @@ DOTFILES=$(dirname "$SCRIPT")
 ################################################################################
 #   ZSH
 ################################################################################
-if [ -z "$ZSH" ]; then
-  rm -rf ~/.oh-my-zsh
-  # Install oh-mh-zsh
-  sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" --unattended
-
-  # Install zsh-autocompletions
-  if [ ! -d "${DOTFILES}/zsh/custom/plugins/zsh-autosuggestions" ]; then
-      git clone \
-        https://github.com/zsh-users/zsh-autosuggestions \
-        "${DOTFILES}/zsh/custom/plugins/zsh-autosuggestions"
-    fi
-fi
 # clear out unwanted config, then link from dotfiles
 rm -f ~/.zshrc ~/.zprofile
 ln -sf "${DOTFILES}/zsh/.zshrc" ~/.zshrc

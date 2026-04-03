@@ -1,78 +1,67 @@
 #!/bin/zsh
 
-# source global shell alias & variables files
+# Shared aliases and variables
 [ -f "$HOME/dotfiles/shell/alias" ] && source "$HOME/dotfiles/shell/alias"
 [ -f "$HOME/dotfiles/shell/vars" ] && source "$HOME/dotfiles/shell/vars"
 
-zstyle ':omz:update' mode disabled
+# Homebrew environment
+[[ -x /opt/homebrew/bin/brew ]] && source <(/opt/homebrew/bin/brew shellenv)
 
-export ZSH="$HOME/.oh-my-zsh"
-source $(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh
-plugins=(git mix mise)
-
-ZSH_THEME="pi"
-ENABLE_CORRECTION="true"
-HYPHEN_INSENSITIVE="true"
-DISABLE_UNTRACKED_FILES_DIRTY="true"
-HIST_STAMPS="yyyy-mm-dd"
-ZSH_CUSTOM="${HOME}/dotfiles/zsh/custom"
-
-source "$ZSH/oh-my-zsh.sh"
-
-# load modules
-zmodload zsh/complist
-autoload -U compinit && compinit
+# Prompt
 autoload -U colors && colors
+setopt prompt_subst
+source "$HOME/dotfiles/zsh/themes/pi.zsh-theme"
 
-# cmp opts
-zstyle ':completion:*' menu select       # tab opens cmp menu
-zstyle ':completion:*' special-dirs true # force . and .. to show in cmp menu
+# Completion and shell behavior
+autoload -U compinit && compinit
+zmodload zsh/complist
 
-# Only autocorrect commands, not arguments
+zstyle ':completion:*' menu select
+zstyle ':completion:*' special-dirs true
+
 unsetopt correct_all
 setopt correct
 
-setopt append_history inc_append_history share_history # better history
-# on exit, history appends rather than overwrites; history is appended as soon as cmds executed; history shared across sessions
-setopt auto_menu menu_complete    # autocmp first menu match
-setopt autocd                     # type a dir to cd
-setopt auto_param_slash           # when a dir is completed, add a / instead of a trailing space
-setopt no_case_glob no_case_match # make cmp case insensitive
-setopt globdots                   # include dotfiles
-setopt extended_glob              # match ~ # ^
-setopt interactive_comments       # allow comments in shell
+setopt append_history inc_append_history share_history
+setopt auto_menu menu_complete
+setopt autocd
+setopt auto_param_slash
+setopt no_case_glob no_case_match
+setopt globdots
+setopt extended_glob
+setopt interactive_comments
+setopt hist_ignore_dups
+setopt hist_ignore_space
+setopt hist_save_no_dups
 
-# history opts
+# History
 HISTSIZE=1000000
 SAVEHIST=1000000
-HISTFILE="$HOME/.cache/zsh/zsh_history" # move histfile to cache
-HISTCONTROL=ignoreboth                 # consecutive duplicates & commands starting with space are not saved
+HISTFILE="$HOME/.cache/zsh/zsh_history"
 
-
-
+# Environment variables
 export KERL_CONFIGURE_OPTIONS="--with-wx-config=$(brew --prefix wxwidgets)/bin/wx-config --enable-wx"
 export KERL_BUILD_DOCS="yes"
+export PNPM_HOME="$HOME/Library/pnpm"
 
+# PATH
+typeset -U path PATH
+path=(
+  "$HOME/dotfiles/bin"
+  "$HOME/.opencode/bin"
+  "$PNPM_HOME"
+  "/Applications/Postgres.app/Contents/Versions/latest/bin"
+  $path
+)
 
-source "/Users/nicholas/.config/hiive/scripts/warp-hooks.zsh"
+# Tool integrations
+[ -f "$(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh" ] && source "$(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh"
+command -v fzf >/dev/null && source <(fzf --zsh)
+command -v zoxide >/dev/null && source <(zoxide init --cmd=cd zsh)
+command -v mise >/dev/null && source <(mise activate zsh)
+[ -f "$HOME/dotfiles/zsh/worktree-completion.zsh" ] && source "$HOME/dotfiles/zsh/worktree-completion.zsh"
+
+# Hiive environment
+[ -f "$HOME/.config/hiive/scripts/warp-hooks.zsh" ] && source "$HOME/.config/hiive/scripts/warp-hooks.zsh"
+[ -f "$HOME/.config/hiive/init.zsh" ] && source "$HOME/.config/hiive/init.zsh"
 export PATH="/Applications/Postgres.app/Contents/Versions/latest/bin:$PATH"
-
-# pnpm
-export PNPM_HOME="/Users/nicholas/Library/pnpm"
-case ":$PATH:" in
-  *":$PNPM_HOME:"*) ;;
-  *) export PATH="$PNPM_HOME:$PATH" ;;
-esac
-# pnpm end
-
-# Homebrew
-source <(/opt/homebrew/bin/brew shellenv)
-source <(fzf --zsh)
-source <(zoxide init --cmd=cd zsh)
-source <(mise activate zsh)
-
-# Initialize Hiive environment
-[[ -f "$HOME/.config/hiive/init.zsh" ]] && source "$HOME/.config/hiive/init.zsh"
-
-# opencode
-export PATH=/Users/nicholas/.opencode/bin:$PATH

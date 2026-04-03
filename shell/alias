@@ -1,1 +1,7 @@
+# Creature comforts
+alias c="clear"
+
+# Git
 alias ggbda='local res=$(git branch -vv | grep "gone\]" | awk '"'"'{print $1}'"'"') && [[ $res ]] && echo $res | xargs git branch -D'
+alias ggwtprune='git-worktree-prune-merged'
+alias ggwt="git worktree list"
