@@ -1,5 +1,12 @@
 # Creature comforts
 alias c="clear"
+alias ll="ls -lah"
+
+if command -v gls >/dev/null 2>&1; then
+  alias ls="gls --color=auto --group-directories-first"
+else
+  export CLICOLOR=1
+fi
 
 # Git
 alias ggbda='local res=$(git branch -vv | grep "gone\]" | awk '"'"'{print $1}'"'"') && [[ $res ]] && echo $res | xargs git branch -D'
