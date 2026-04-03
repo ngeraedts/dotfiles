@@ -1,0 +1,13 @@
+# Ignore swap files
+*.swp
+*.so
+
+# Ignore vim plugin directories
+vim/.vim/plugged/
+vim/.vim/autoload/
+
+# Ignore zsh-suggestions plugins - installed separately via git
+zsh/custom/plugins/zsh-autosuggestions
+
+# Brewfile lockfile
+Brewfile.lock.json

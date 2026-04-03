@@ -1,0 +1,5 @@
+set guioptions-=r
+set guioptions-=L
+set guifont=Source\ Code\ Pro:h12
+set linespace=2
+set macligatures

@@ -1,0 +1,58 @@
+[user]
+	name = "Nicholas Geraedts"
+	email = "nicholas.geraedts@hiive.com"
+	signingkey = ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDeWhUSurHqkX2mzNXjK7UOrCfe6RF3GnlVpRdkhiHVh
+[gpg]
+	format = ssh
+[gpg "ssh"]
+	program = /Applications/1Password.app/Contents/MacOS/op-ssh-sign
+[commit]
+	gpgsign = true
+[init]
+	defaultBranch = main
+[color]
+	ui = auto
+[fetch]
+	prune = true
+[core]
+	excludesfile = ~/.gitignore
+	editor = vim
+	attributesfile = ~/.gitattributes
+[diff]
+	mnemonicprefix = true
+[push]
+	autoSetupRemote = true
+[pull]
+	rebase = true
+[rebase]
+	autoStash = true
+[merge]
+	conflictStyle = diff3
+	rebase = true
+	autostash = true
+[pretty]
+	changelog = format:%C(yellow)%h%Creset%C(auto)%d%Creset %s - %C(dim white)%an%Creset %Cgreen(%cr)%Creset
+	longlog = format:%C(yellow)%h%Creset%C(auto)%d%Creset - %C(dim white)%an <%ae>%Creset %Cgreen(%cr)%Creset\n%s\n
+[alias]
+	list-aliases = "!git config -l | grep alias | cut -c 7-"
+	co = checkout
+	lg = log --graph -100 --pretty=changelog
+	ll = log --graph -100 --pretty=longlog --all
+	ignored = ls-files --exclude-standard --ignored --others
+	ca = commit --amend
+	cm = commit -m
+	fixup = commit --amend --no-edit
+	unstage = reset HEAD
+	s = status
+	dirty = commit -m 'wip' --no-verify
+	main = !git fetch && git switch main && git merge origin/main --ff-only
+
+[credential "https://github.com"]
+	helper =
+	helper = !/opt/homebrew/bin/gh auth git-credential
+
+[credential "https://gist.github.com"]
+	helper =
+	helper = !/opt/homebrew/bin/gh auth git-credential
+
+
