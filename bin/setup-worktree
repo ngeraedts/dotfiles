@@ -207,6 +207,7 @@ pick_branch_name() {
       --height=40% \
       --layout=reverse \
       --border \
+      --preview='' \
       --print-query \
       --query='' \
       < "$branch_list_file" > "$selection_file"
