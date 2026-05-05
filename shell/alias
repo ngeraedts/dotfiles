@@ -13,3 +13,6 @@ fi
 alias ggbda='local res=$(git branch -vv | grep "gone\]" | awk '"'"'{print $1}'"'"') && [[ $res ]] && echo $res | xargs git branch -D'
 alias ggwtprune='git-worktree-prune-merged'
 alias ggwt="git worktree list"
+
+# Zellij
+alias hiive-local="zellij attach hiive-local 2>/dev/null || zellij -n hiive -s hiive-local"

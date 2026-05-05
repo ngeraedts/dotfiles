@@ -65,3 +65,7 @@ command -v mise >/dev/null && source <(mise activate zsh)
 [ -f "$HOME/.config/hiive/scripts/warp-hooks.zsh" ] && source "$HOME/.config/hiive/scripts/warp-hooks.zsh"
 [ -f "$HOME/.config/hiive/init.zsh" ] && source "$HOME/.config/hiive/init.zsh"
 export PATH="/Applications/Postgres.app/Contents/Versions/latest/bin:$PATH"
+
+# >>> hiive initialize (v2) >>>
+[[ -f "$HOME/.config/hiive/init.zsh" ]] && source "$HOME/.config/hiive/init.zsh"
+# <<< hiive initialize (v2) <<<

@@ -36,3 +36,11 @@ _gwtrm_worktrees() {
 
 compdef _gwtrm_worktrees gwtrm
 compdef _git ggwt=git
+
+_setup_worktree_branches() {
+  local -a branches
+  branches=(${(f)"$(git branch --sort=-committerdate --format='%(refname:short)' 2>/dev/null)"})
+  _describe 'branch' branches
+}
+
+compdef _setup_worktree_branches setup-worktree
