@@ -4,11 +4,6 @@
   "defaultModel": "gpt-6.1-sol",
   "defaultThinkingLevel": "medium",
   "packages": [],
-  "extensions": [
-    "-extensions/datadog/index.ts",
-    "-extensions/notion/index.ts",
-    "-extensions/posthog/index.ts"
-  ],
   "hideThinkingBlock": false,
   "enabledModels": [
     "anthropic/claude-opus-4-8",

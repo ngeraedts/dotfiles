@@ -60,8 +60,35 @@ in this repository. The Anthropic API-key provider uses `ANTHROPIC_API_KEY` from
 the process environment. Restart Pi after changing inherited environment
 variables. A shell command prefix changes child shells, not Pi's own environment.
 
-Vercel provides `/vercel-auth`. The Datadog, Notion, and PostHog extensions are
-disabled in settings. Enable them only when needed and use their login commands.
+Use the Hiive MCP gateway for Datadog, Notion, PostHog, Vercel, and routine Linear
+operations. Configure it in the local `~/.pi/agent/mcp.json`:
+
+```json
+{
+  "mcpServers": {
+    "hiive": {
+      "url": "https://mcp.hiive.network/mcp",
+      "exposure": "deferred",
+      "description": "Hiive integrations: Datadog, GitHub, Linear, Notion, PostHog, Vercel, Cloudflare, and incident.io."
+    }
+  }
+}
+```
+
+Sign in with `/mcp login hiive`. Discover the gateway tools with `tool_search`,
+then use `portal_codemode_search` to inspect upstream tools before calling
+`portal_codemode_execute`. Follow the portal's connection instructions if an
+upstream service requires authorization.
+
+The custom Figma extension provides design data, renders, and comments. The
+custom Linear extension provides issue archive and deletion, issue attachment
+inspection, and project image viewing. These extensions still need their API
+credentials. The Linear viewers return native Pi image blocks, save issue
+attachments locally, and use `ffmpeg` and `ffprobe` for video inspection. Use them
+for screenshots and videos. The gateway serializes `extract_images` output as
+text rather than returning native image blocks.
+
+Terraform uses a separate local MCP configuration.
 
 Work-specific `AGENTS.md`, MCP configuration, skills, and extensions remain
 local. Authentication files, device trust, sessions, caches, downloaded binaries,
