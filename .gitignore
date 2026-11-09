@@ -11,3 +11,13 @@ zsh/custom/plugins/zsh-autosuggestions
 
 # Brewfile lockfile
 Brewfile.lock.json
+
+# Machine-local environment and credentials
+shell/vars
+**/node_modules/
+pi/.pi/agent/*
+!pi/.pi/agent/settings.json
+!pi/.pi/agent/models.json
+!pi/.pi/agent/extensions/
+pi/.pi/agent/extensions/herdr-agent-state.ts
+pi/.pi/agent/extensions/isolated-review.ts

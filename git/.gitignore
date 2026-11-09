@@ -54,4 +54,8 @@ Thumbs.db
 # AI Crap #
 ###########
 SKILLS.md
+HANDOFF.md
 .dexter.db*
+.plans/
+
+**/.claude/settings.local.json

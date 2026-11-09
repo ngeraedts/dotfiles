@@ -8,13 +8,4 @@ export MANPAGER="less -R --use-color -Dd+r -Du+b"
 export ERL_AFLAGS="-kernel shell_history enabled"
 export HOMEBREW_NO_AUTO_UPDATE=1
 
-# PATH
-typeset -U path PATH
-path=(
-  "/opt/homebrew/bin"
-  "$HOME/.cargo/bin"
-  "$HOME/.local/bin"
-  "$HOME/.local/share/mise/shims"
-  "$HOME/dotfiles/scripts"
-  $path
-)
+source "$HOME/dotfiles/shell/env.sh"
